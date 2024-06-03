@@ -36,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
+@TestMethodOrder(OrderAnnotation.class)
 class MusinsaProductManagerApplicationTests {
 
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -44,6 +45,7 @@ class MusinsaProductManagerApplicationTests {
   private MockMvc mockMvc;
 
   @Test
+  @Order(1)
   public void getCategoriesPriceMinBrandTest() throws Exception {
     //given
     CategoryMinPriceBrandListForTest expectResult = new CategoryMinPriceBrandListForTest(Arrays.asList(
@@ -75,6 +77,7 @@ class MusinsaProductManagerApplicationTests {
   }
 
   @Test
+  @Order(2)
   public void getTotalPriceMinBrandTest() throws Exception {
     //given
     CheapestBrandProductListForTest expectResult = new CheapestBrandProductListForTest("D", Arrays.asList(
@@ -114,6 +117,7 @@ class MusinsaProductManagerApplicationTests {
     );
   }
 
+  @Order(3)
   @ParameterizedTest
   @MethodSource("getCategoryPriceMinMaxBrandTestParams")
   public void getCategoryPriceMinMaxBrandTest(String category, CategoryMinMaxPriceBrandForTest expectResult) throws Exception {
@@ -132,6 +136,7 @@ class MusinsaProductManagerApplicationTests {
 
 
   @Test
+  @Order(4)
   public void getAllBrandsTest() throws Exception {
     //given
     List<String> expectResult = Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I");
@@ -150,6 +155,7 @@ class MusinsaProductManagerApplicationTests {
   }
 
   @Test
+  @Order(5)
   public void createBrandTest() throws Exception {
     //given
     List<String> expectResult = Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J");
@@ -174,6 +180,7 @@ class MusinsaProductManagerApplicationTests {
   }
 
   @Test
+  @Order(6)
   public void updateBrandTest() throws Exception {
     //given
     List<String> expectResult = Arrays.asList("A", "B", "C", "Foo", "E", "F", "G", "H", "I");
@@ -208,6 +215,7 @@ class MusinsaProductManagerApplicationTests {
   }
 
   @Test
+  @Order(7)
   public void deleteBrandTest() throws Exception {
     //given
     List<String> expectResult = Arrays.asList("A", "B", "C", "E", "F", "G", "H", "I");
