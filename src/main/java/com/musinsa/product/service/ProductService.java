@@ -70,7 +70,7 @@ public class ProductService {
     return new CheapestBrandProductList(cheapestBrandName, categoryProductPriceList, totalPrice);
   }
 
-  @Cacheable("categoryPriceMinMaxBrand")
+  @Cacheable(value="categoryPriceMinMaxBrand", key="#categoryName")
   public CategoryMinMaxPriceBrand getCategoryPriceMinMaxBrand(String categoryName) {
     final Product minPriceProduct;
     try {
