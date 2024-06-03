@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.musinsa.product.mapper.BrandMapper">
+
+  <insert id="insert" parameterType="string">
+    INSERT INTO Brand (brand_name) VALUES (#{brandName})
+  </insert>
+
+  <update id="update" parameterType="map">
+    UPDATE Brand SET brand_name = #{newBrandName} WHERE brand_name = #{brandName}
+  </update>
+
+  <delete id="delete" parameterType="string">
+    DELETE FROM Brand WHERE brand_name = #{brandName}
+  </delete>
+
+  <select id="selectAll" resultType="Brand">
+    SELECT * FROM Brand
+  </select>
+</mapper>

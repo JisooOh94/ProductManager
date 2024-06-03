@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.musinsa.product.mapper.ProductMapper">
+
+  <select id="selectMinPriceBrandPerCategory" resultType="Product">
+    SELECT
+        p2.category_name AS categoryName,
+        p2.brand_name AS brandName,
+        p2.price AS minPrice
+    FROM
+        (SELECT category_name, MIN(price) AS min_price FROM Product GROUP BY category_name) p1,
+        Product p2
+    WHERE
+        p1.category_name = p2.category_name
+    AND
+        p1.min_price = p2.price
+  </select>
+
+  <select id="selectCheapestBrandProducts" resultType="Product">
+    SELECT
+        category_name AS categoryName,
+        brand_name AS brandName,
+        price AS price,
+    FROM
+        Product
+    WHERE
+        brand_name = (SELECT brand_name FROM Brand ORDER BY price_sum LIMIT 1)
+  </select>
+
+  <select id="selectCategoryMinPrice" resultType="Product">
+    SELECT
+        category_name AS categoryName,
+        brand_name AS brandName,
+        price AS price
+    FROM
+        Product
+    WHERE
+        category_name = #{categoryName}
+    ORDER BY
+        price
+    LIMIT 1
+  </select>
+
+  <select id="selectCategoryMaxPrice" resultType="Product">
+    SELECT
+        category_name AS categoryName,
+        brand_name AS brandName,
+        price AS price
+    FROM
+        Product
+    WHERE
+        category_name = #{categoryName}
+    ORDER BY
+        price DESC
+    LIMIT 1
+  </select>
+
+  <update id="updateBrandName" parameterType="map">
+    UPDATE Product SET brand_name = #{newBrandName} WHERE brand_name = #{brandName}
+  </update>
+
+  <delete id="deleteBrandProducts" parameterType="string">
+    DELETE FROM Product WHERE brand_name = #{brandName}
+  </delete>
+
+  <insert id="insert" parameterType="Product">
+    INSERT INTO Product (category_name, brand_name, price) VALUES (#{categoryName}, #{brandName}, #{price})
+  </insert>
+
+  <update id="updateProductByCategoryAndBrand" parameterType="map">
+    UPDATE Product
+    SET category_name = #{product.categoryName},
+        brand_name = #{product.brandName},
+        price = #{product.price}
+    WHERE category_name = #{category} AND brand_name = #{brand}
+  </update>
+
+  <delete id="deleteProductByCategoryAndBrand" parameterType="map">
+    DELETE FROM Brand WHERE category_name = #{category} AND brand_name = #{brand}
+  </delete>
+
+</mapper>
