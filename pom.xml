@@ -11,7 +11,7 @@
   <groupId>com.musinsa</groupId>
   <artifactId>Musinsa_Product_Manager</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <name>Musinsa_Product_Manager</name>
   <description>Musinsa_Product_Manager</description>
   <properties>
